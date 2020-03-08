@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: @pom.artifactId@
+  security:
+    user:
+      name: oauth2
+      password: oauth2
+server:
+  port: 8030
