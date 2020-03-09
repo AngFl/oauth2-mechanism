@@ -83,7 +83,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                     .accessTokenValiditySeconds(7200)
                     .refreshTokenValiditySeconds(86400)
                     // 发放授权码code 注册的回调地址
-                    .redirectUris("http://cn.bing.com")
+                    .redirectUris("http://localhost:8031/client-web/login")
                     // 授权模式类型
                     .authorizedGrantTypes("refresh_token", "authorization_code")
                     // 针对 authorization_code 是否自动Approval 操作，（略过点击确认按钮）
@@ -96,8 +96,14 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                     .resourceIds("resourceApp-b")
                     .accessTokenValiditySeconds(7200)
                     .refreshTokenValiditySeconds(86400)
-                    .authorizedGrantTypes("password")
-                    .scopes("all");
+                    // 发放授权码code 注册的回调地址
+                    .redirectUris("http://localhost:8032/client-admin/login")
+                    // 授权模式类型
+                    .authorizedGrantTypes("refresh_token", "authorization_code")
+                    // 针对 authorization_code 是否自动Approval 操作，（略过点击确认按钮）
+                    .autoApprove(true)
+                    // 授权的令牌权限
+                    .scopes("read", "write");
     }
 
     //    @Override
