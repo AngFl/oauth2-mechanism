@@ -87,7 +87,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                     // 授权模式类型
                     .authorizedGrantTypes("refresh_token", "authorization_code")
                     // 针对 authorization_code 是否自动Approval 操作，（略过点击确认按钮）
-                    .autoApprove(true)
+                    // .autoApprove(true)
                     // 授权的令牌权限
                     .scopes("read", "write")
                     .and()
@@ -101,7 +101,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                     // 授权模式类型
                     .authorizedGrantTypes("refresh_token", "authorization_code")
                     // 针对 authorization_code 是否自动Approval 操作，（略过点击确认按钮）
-                    .autoApprove(true)
+                    // .autoApprove(true)
                     // 授权的令牌权限
                     .scopes("read", "write");
     }
