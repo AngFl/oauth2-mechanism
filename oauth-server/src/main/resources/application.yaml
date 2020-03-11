@@ -1,6 +1,11 @@
 spring:
   application:
     name: @pom.artifactId@
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/oauth2-server?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+    username: root
+    password: qweqwe
   redis:
     host: 127.0.0.1
     password: password
@@ -16,3 +21,24 @@ server:
   port: 8030
   servlet:
     context-path: /example-auth
+
+# Logging
+logging:
+  level:
+    root: info
+    club.example.oauth2.server.repository: trace
+
+# mybatis
+mybatis-plus:
+  type-aliases-package: club.example.oauth2.server.entity
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    banner: false
+    db-config:
+      id-type: none
+  #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+  configuration:
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+    cache-enabled: false
+    default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
