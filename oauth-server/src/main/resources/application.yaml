@@ -42,3 +42,10 @@ mybatis-plus:
     call-setters-on-nulls: true
     cache-enabled: false
     default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
+
+oauth2:
+  security:
+    jwt:
+      sign-key: jwtSignKey
+    authorization-code:
+      expiration : 300

@@ -5,7 +5,6 @@ import club.example.oauth2.server.repository.OAuthClientDetailMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -24,12 +23,12 @@ import java.util.stream.Collectors;
 @Log4j2
 @Service
 @Primary
-public class OAuth2ClientsDetailService implements ClientDetailsService {
+public class MybatisOAuthClientsDetailService implements ClientDetailsService {
 
     private final OAuthClientDetailMapper oAuthClientDetailMapper;
 
     @Autowired
-    public OAuth2ClientsDetailService(OAuthClientDetailMapper oAuthClientDetailMapper) {
+    public MybatisOAuthClientsDetailService(OAuthClientDetailMapper oAuthClientDetailMapper) {
         this.oAuthClientDetailMapper = oAuthClientDetailMapper;
     }
 
