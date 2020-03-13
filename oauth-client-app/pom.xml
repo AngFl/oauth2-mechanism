@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>oauth-client-web</artifactId>
+    <artifactId>oauth-client-app</artifactId>
 
     <dependencies>
         <dependency>
@@ -17,14 +17,4 @@
             <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <finalName>oauth2-client-web</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>
