@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
+@ JsonIgnoreProperties({"clientSecret", "metaFlag"})
 @TableName("oauth_client_details")
 public class OAuthClientDetail {
 
@@ -36,8 +39,10 @@ public class OAuthClientDetail {
     @TableField("refresh_token_validity")
     private int refreshTokenValiditySeconds;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
 
     private int metaFlag;
