@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bootstrap4</title>
+    <link rel="stylesheet" th:href="@{/style/bootstrap.min.css}">
+</head>
+<body class="bg-light">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 120px;"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <div class="card" style="width: 30rem;">
+                <div class="card-body">
+                    <h4 class="card-title">OAuth2 认证批准</h4>
+                    <p class="card-text">您是否授权 "<span th:text="${oauthConfirm.clientId}"></span> " 访问您所保护的资源应用 ?</p>
+                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    <form id="confirmationForm" name="confirmationForm" th:action="${oauthConfirm.confirmAccessUrl}" method="post">
+                        <input name="user_oauth_approval" value="true" type="hidden" />
+                        <input th:name="${oauthConfirm.csrfParameterName}" th:value="${oauthConfirm.csrfToken}" type="hidden" />
+                        <label><input name="authorize" value="授权" type="submit" class="btn btn-primary"/></label>
+                    </form>
+                    <form id="denialForm" name="denialForm" th:action="${oauthConfirm.confirmAccessUrl}" method="post">
+                        <input th:name="${oauthConfirm.csrfParameterName}" th:value="${oauthConfirm.csrfToken}" type="hidden" />
+                        <input name="user_oauth_approval" value="false" type="hidden" />
+                        <label><input name="deny" value="拒绝" type="submit" class="btn"/></label>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+</body>
+
+</html>

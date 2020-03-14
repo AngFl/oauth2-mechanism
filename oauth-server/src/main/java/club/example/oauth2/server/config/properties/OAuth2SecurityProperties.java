@@ -9,6 +9,8 @@ public class OAuth2SecurityProperties {
 
     private AuthorizationCodeProperties authorizationCode = new AuthorizationCodeProperties();
 
+    private BrowserLoginProperties browser = new BrowserLoginProperties();
+
     public JWTSecurityProperties getJwt() {
         return jwt;
     }
@@ -23,5 +25,13 @@ public class OAuth2SecurityProperties {
 
     public void setAuthorizationCode(AuthorizationCodeProperties authorizationCode) {
         this.authorizationCode = authorizationCode;
+    }
+
+    public BrowserLoginProperties getBrowser() {
+        return browser;
+    }
+
+    public void setBrowser(BrowserLoginProperties browser) {
+        this.browser = browser;
     }
 }

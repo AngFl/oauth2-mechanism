@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "oauth2.security.jwt.sign-key",
+      "type": "java.lang.String",
+      "description": "Description for oauth2.security.jwt.sign-key."
+    },
+    {
+      "name": "oauth2.security.authorization-code.expiration",
+      "type": "java.lang.Long",
+      "description": "Description for oauth2.security.authorization-code.expiration."
+    },
+    {
+      "name": "oauth2.security.authorization-code.prefix",
+      "type": "java.lang.Long",
+      "description": "Description for oauth2.security.authorization-code.prefix."
+    },
+    {
+      "name": "oauth2.security.browser.login-page",
+      "type": "java.lang.String",
+      "description": "Description for oauth2.security.login-page."
+    }
+  ]
+}

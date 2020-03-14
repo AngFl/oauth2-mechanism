@@ -15,7 +15,7 @@ server:
 security:
   oauth2:
     client:
-      client-id: client-test-b
+      client-id: k-life-client
       client-secret: 123456
       user-authorization-uri: http://localhost:8030/example-auth/oauth/authorize
       access-token-uri: http://localhost:8030/example-auth/oauth/token

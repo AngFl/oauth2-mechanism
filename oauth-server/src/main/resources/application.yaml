@@ -49,6 +49,8 @@ oauth2:
       sign-key: jwtSignKey
     authorization-code:
       expiration : 300
+    browser:
+      login-page : /oauth-sign-in.html
 
 # 资源自有服务器
 #security:
