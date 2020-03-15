@@ -1,10 +1,10 @@
 spring:
   application:
     name: @pom.artifactId@
-  security:
-    user:
-      name: webclient
-      password: asd123
+#  security:
+#    user:
+#      name: webclient
+#      password: asd123
 
 server:
   servlet:

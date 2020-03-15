@@ -41,11 +41,7 @@ public class OAuth2WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .loginProcessingUrl("/sign-in")
         .and()
             .authorizeRequests()
-            .antMatchers(
-                    "/style/**",
-                    "/scripts/***",
-                    loginPage
-            ).permitAll()
+            .antMatchers(loginPage).permitAll()
             .anyRequest()
             .authenticated()
         .and()

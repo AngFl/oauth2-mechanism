@@ -1,15 +1,16 @@
 spring:
   application:
     name: @pom.artifactId@
+
 server:
+  port: 8036
   servlet:
-    context-path: /resource
-  port: 8035
+    context-path: /resource-service
 
 security:
   oauth2:
     client:
-      client-id: client-test-d
+      client-id: client-test-e
       client-secret: 123456
       # 获取访问令牌接口
       access-token-uri: http://localhost:8030/example-auth/oauth/token

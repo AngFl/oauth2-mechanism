@@ -24,7 +24,7 @@ public class OAuthClientDetailMapperTest {
     @Test
     public void testOAuthClientCreate() {
         OAuthClientDetail oAuthClientDetail = new OAuthClientDetail();
-        oAuthClientDetail.setClientId("client-test-d");
+        oAuthClientDetail.setClientId("client-test-e");
         oAuthClientDetail.setClientSecret(passwordEncoder.encode("123456"));
         oAuthClientDetail.setResourceIds("resourceApp-b");
         oAuthClientDetail.setRedirectUri("");
