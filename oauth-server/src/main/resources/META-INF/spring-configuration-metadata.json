@@ -6,6 +6,11 @@
       "description": "Description for oauth2.security.jwt.sign-key."
     },
     {
+      "name": "oauth2.security.store-type",
+      "type": "java.lang.String",
+      "description": "Description for oauth2.security.store-type."
+    },
+    {
       "name": "oauth2.security.authorization-code.expiration",
       "type": "java.lang.Long",
       "description": "Description for oauth2.security.authorization-code.expiration."

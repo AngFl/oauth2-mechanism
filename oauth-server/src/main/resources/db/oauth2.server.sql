@@ -3,7 +3,7 @@ CREATE TABLE `oauth_client_details` (
     `client_secret` varchar(255) NOT NULL         COMMENT '客户端秘钥',
     `resource_ids` varchar(128) DEFAULT ''        COMMENT '令牌可访问的资源服务器ID（按 "," 分隔)',
     `grant_types` varchar(128) DEFAULT  ''        COMMENT '授权模式 （按 "," 分隔)',
-    `scope` varchar(64) DEFAULT ''                COMMENT '授权作用域 （按 "," 分隔)',
+    `scopes` varchar(64) DEFAULT ''                COMMENT '授权作用域 （按 "," 分隔)',
 
     `server_redirect_uri` varchar(255) DEFAULT '' COMMENT  '客户端服务器注册的授权码回调地址',
     `access_token_validity` int(11) DEFAULT 0     COMMENT  '访问令牌的有效期，s为单位',

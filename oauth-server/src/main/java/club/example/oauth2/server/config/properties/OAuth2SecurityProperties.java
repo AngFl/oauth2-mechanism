@@ -5,6 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "oauth2.security")
 public class OAuth2SecurityProperties {
 
+    private String storeType = "jwt";
+
     private JWTSecurityProperties jwt = new JWTSecurityProperties();
 
     private AuthorizationCodeProperties authorizationCode = new AuthorizationCodeProperties();
@@ -33,5 +35,13 @@ public class OAuth2SecurityProperties {
 
     public void setBrowser(BrowserLoginProperties browser) {
         this.browser = browser;
+    }
+
+    public String getStoreType() {
+        return storeType;
+    }
+
+    public void setStoreType(String storeType) {
+        this.storeType = storeType;
     }
 }

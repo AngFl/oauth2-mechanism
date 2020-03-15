@@ -21,8 +21,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Log4j2
-@Service
 @Primary
+@Service("mybatisOAuthClientsDetailService")
 public class MybatisOAuthClientsDetailService implements ClientDetailsService {
 
     private final OAuthClientDetailMapper oAuthClientDetailMapper;

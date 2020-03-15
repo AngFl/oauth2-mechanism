@@ -1,7 +1,10 @@
 package club.example.oauth2.server.config;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,37 +26,23 @@ import java.util.Arrays;
 @Order(3)
 @Configuration
 @EnableAuthorizationServer
-public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter implements ApplicationContextAware {
 
     private final AuthenticationManager authenticationManager;
-
-    private final ClientDetailsService clientDetailsService;
 
     private final UserDetailsService userDetailsService;
 
     private final AuthorizationCodeServices authorizationCodeService;
 
-    private final TokenStore tokenStore;
-
-    private final JwtAccessTokenConverter jwtAccessTokenConverter;
-
-    private final TokenEnhancer jwtTokenEnhancer;
+    private ApplicationContext applicationContext;
 
     @Autowired
     public OAuth2AuthorizationServerConfig(AuthenticationManager authenticationManager,
-                                           ClientDetailsService clientDetailsService,
                                            AuthorizationCodeServices authorizationCodeService,
-                                           JwtAccessTokenConverter jwtAccessTokenConverter,
-                                           @Qualifier("authorizationUserDetailService") UserDetailsService userDetailsService,
-                                           @Qualifier("jwtTokenStore") TokenStore tokenStore,
-                                           TokenEnhancer jwtTokenEnhancer) {
+                                           @Qualifier("authorizationUserDetailService") UserDetailsService userDetailsService) {
         this.authenticationManager = authenticationManager;
-        this.clientDetailsService = clientDetailsService;
         this.userDetailsService = userDetailsService;
         this.authorizationCodeService = authorizationCodeService;
-        this.tokenStore = tokenStore;
-        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
-        this.jwtTokenEnhancer = jwtTokenEnhancer;
     }
 
     @Override
@@ -65,24 +54,38 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+
+        TokenStore jwtTokenStore = applicationContext.getBean("jwtTokenStore", TokenStore.class);
+
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
                 .authorizationCodeServices(authorizationCodeService)
-                .tokenStore(tokenStore);
+                .tokenStore(jwtTokenStore);
+        JwtAccessTokenConverter tokenConverter = applicationContext.getBean("jwtAccessTokenConverter",
+                JwtAccessTokenConverter.class);
+        TokenEnhancer tokenEnhancer = applicationContext.getBean("jwtTokenEnhancer",
+                TokenEnhancer.class);
         // Token 增强配置
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
         enhancerChain.setTokenEnhancers(Arrays.asList(
-                jwtAccessTokenConverter,
-                jwtTokenEnhancer));
+                tokenConverter,
+                tokenEnhancer));
 
-        endpoints.accessTokenConverter(jwtAccessTokenConverter)
+        endpoints.accessTokenConverter(tokenConverter)
                 .tokenEnhancer(enhancerChain);
 
     }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.withClientDetails(clientDetailsService);
+        clients.withClientDetails(
+                applicationContext.getBean("mybatisOAuthClientsDetailService", ClientDetailsService.class)
+        );
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
     /*
