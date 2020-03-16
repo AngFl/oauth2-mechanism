@@ -26,7 +26,7 @@ public class OAuth2JwtTokenStoreConfig {
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        // TODO: JWT 可以使用 签名来完成校验
+        // JWT 可以使用 签名来完成校验
         jwtAccessTokenConverter.setSigningKey(auth2SecurityProperties.getJwt().getSignKey());
         return jwtAccessTokenConverter;
     }
