@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bootstrap4</title>
+    <link rel="stylesheet" th:href="@{/style/bootstrap.min.css}">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand mr-auto mr-lg-0" href="#">OAuth2 Clients MDC</a>
+    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Notifications</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="nav-scroller bg-white shadow-sm">
+    <nav class="nav nav-underline">
+        <a class="nav-link active" href="#">Dashboard</a>
+        <a class="nav-link" href="#">
+            Friends
+            <span class="badge badge-pill bg-light align-text-bottom">27</span>
+        </a>
+        <a class="nav-link" href="#">Explore</a>
+        <a class="nav-link" href="#">Suggestions</a>
+        <a class="nav-link" href="#">Link</a>
+    </nav>
+</div>
+<main role="main" class="container">
+    <div class="bg-light rounded shadow-sm">
+        <small class="d-block text-right mt-3">
+            <a href="#">Recent updates</a>
+        </small>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th>客户端ID</th>
+                <th>资源服务器ID</th>
+                <th>授权码发放URL</th>
+                <th>授权模式</th>
+                <th>客户端作用域(Scope)</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody th:if="${not #lists.isEmpty(clientDetails)}">
+            <tr th:each="client : ${clientDetails}">
+                <td th:text="${client.clientId}"></td>
+                <td th:text="${client.resourceIds}"></td>
+                <td th:text="${client.redirectUri}"></td>
+                <td th:text="${client.grantTypes}"></td>
+                <td th:text="${client.scopes}"></td>
+                <td><a th:href="'/example-auth/client/detail/' + ${client.clientId}">编辑</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+<script type="text/javascript" th:src="@{/scripts/jquery-3.4.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{/scripts/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/scripts/bootstrap.min.js}"></script>
+</html>

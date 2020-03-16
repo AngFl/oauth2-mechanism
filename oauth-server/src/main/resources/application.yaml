@@ -45,7 +45,24 @@ mybatis-plus:
 
 oauth2:
   security:
-    jwt:
-      sign-key: jwtSignKey
+    store-type: jwt
     authorization-code:
       expiration : 300
+    jwt:
+      sign-key: jwtSignKey
+    browser:
+      login-page : /oauth-sign-in.html
+
+# 资源自有服务器
+#security:
+#  oauth2:
+#    client:
+#      client-id: authorization-admin-gr8xjo2c
+#      client-secret: password.admin
+#      access-token-uri: http://localhost:${server.port}/${server.servlet.context-path}/oauth/token
+#      resource-ids: resourceApp-b
+#      scope: read,write
+#      grant-type: password
+#    resource:
+#      jwt:
+#        key-uri: http://localhost:${server.port}/${server.servlet.context-path}/oauth/token_key

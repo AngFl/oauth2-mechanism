@@ -11,6 +11,13 @@
 
     <artifactId>oauth-client-admin</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>oauth2-client-admin</finalName>
         <plugins>

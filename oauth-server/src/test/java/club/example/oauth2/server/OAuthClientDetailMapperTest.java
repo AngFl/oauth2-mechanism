@@ -24,11 +24,11 @@ public class OAuthClientDetailMapperTest {
     @Test
     public void testOAuthClientCreate() {
         OAuthClientDetail oAuthClientDetail = new OAuthClientDetail();
-        oAuthClientDetail.setClientId("client-test-b");
+        oAuthClientDetail.setClientId("client-test-e");
         oAuthClientDetail.setClientSecret(passwordEncoder.encode("123456"));
         oAuthClientDetail.setResourceIds("resourceApp-b");
-        oAuthClientDetail.setRedirectUri("http://localhost:8031/client-web/login");
-        oAuthClientDetail.setGrantTypes("refresh_token,authorization_code");
+        oAuthClientDetail.setRedirectUri("");
+        oAuthClientDetail.setGrantTypes("refresh_token,password");
         oAuthClientDetail.setScopes("read,write");
         oAuthClientDetail.setAutoApprove(EnumAutoApprove.DISABLE_AUTO);
         oAuthClientDetail.setAccessTokenValiditySeconds(3600);
