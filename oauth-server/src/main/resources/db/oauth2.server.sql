@@ -50,11 +50,23 @@ CREATE TABLE `oauth_permission` (
 
 -- 权限角色
 CREATE TABLE `oauth_permission_roles` (
-    `permission_role_id`      BIGINT(20) NOT NULL              AUTO_INCREMENT            COMMENT '权限ID',
+    `permission_role_id`      BIGINT(20) NOT NULL              AUTO_INCREMENT            COMMENT '权限角色ID',
     `permission_description`  VARCHAR(128)                     NOT NULL                  COMMENT '权限描述',
     `permission_mask`         INT(11) NOT NULL                 COMMENT '权限标记位, 10进制存储, 标识为2进制',
     `created_at`              DATETIME NOT NULL                COMMENT '创建时间',
     `updated_at`              DATETIME NOT NULL                COMMENT '修改时间',
     `meta_flag`               INT(11) DEFAULT 0                COMMENT '数据删除标注 0 正常',
     PRIMARY KEY (`permission_role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 用户权限角色
+CREATE TABLE `oauth_user_permission_role` (
+      `oauth_user_permission_id`      BIGINT(20)   NOT NULL      AUTO_INCREMENT            COMMENT '权限角色用户ID',
+      `oauth_user_id`                 BIGINT(20)   NOT NULL      COMMENT '权限描述',
+      `oauth_permission_role_id`      BIGINT(20)   NOT NULL      COMMENT '权限标记位, 10进制存储, 标识为2进制',
+      `created_at`              DATETIME NOT NULL                COMMENT '创建时间',
+      `updated_at`              DATETIME NOT NULL                COMMENT '修改时间',
+      `meta_flag`               INT(11) DEFAULT 0                COMMENT '数据删除标注 0 正常',
+      PRIMARY KEY (`oauth_user_permission_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

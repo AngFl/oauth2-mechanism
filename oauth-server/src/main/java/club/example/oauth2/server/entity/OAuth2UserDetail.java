@@ -4,6 +4,8 @@ import club.example.oauth2.server.constant.EnumOAuthUserCredentialExpired;
 import club.example.oauth2.server.constant.EnumOAuthUserEnable;
 import club.example.oauth2.server.constant.EnumOAuthUserExpired;
 import club.example.oauth2.server.constant.EnumOAuthUserLocked;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,11 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 
 @Getter
 @Setter
-public class OAuthUserDetail implements UserDetails {
+@TableName("oauth_user_details")
+public class OAuth2UserDetail implements UserDetails {
 
+    @TableId
     private long userId;
 
     private String username;
@@ -36,13 +41,11 @@ public class OAuthUserDetail implements UserDetails {
 
     private LocalDateTime updatedAt;
 
-    private int authoritiesMask;
-
     private int metaFlag;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

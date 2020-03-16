@@ -2,7 +2,9 @@ package club.example.oauth2.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
+@EnableDiscoveryClient
 @SpringBootApplication
 public class OAuth2ServerApplication {
     public static void main(String[] args) {
