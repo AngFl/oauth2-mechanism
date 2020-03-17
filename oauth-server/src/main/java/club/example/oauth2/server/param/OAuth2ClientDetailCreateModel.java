@@ -2,11 +2,13 @@ package club.example.oauth2.server.param;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
+@ToString
 public class OAuth2ClientDetailCreateModel {
 
     @NotEmpty(message = "客户端ID")

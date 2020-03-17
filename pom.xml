@@ -9,7 +9,6 @@
         <module>oauth-client-admin</module>
         <module>oauth-client-app</module>
         <module>oauth-client-app-service</module>
-        <module>eureka-server</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -24,4 +24,6 @@ public interface OAuth2ClientDetailsService {
     OAuthClientDetail get(String clientId);
 
     OAuthClientDetail create(OAuth2ClientDetailCreateModel model);
+
+    OAuthClientDetail update(OAuth2ClientDetailCreateModel model);
 }

@@ -1,6 +1,9 @@
 spring:
   application:
     name: @pom.artifactId@
+  mvc:
+    servlet:
+      load-on-startup: 0
 #  security:
 #    user:
 #      name: webclient

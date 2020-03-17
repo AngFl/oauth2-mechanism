@@ -17,6 +17,9 @@ spring:
         max-active: 8
         max-wait: -1ms
         min-idle: 0
+  mvc:
+    servlet:
+      load-on-startup: 0
 server:
   port: 8030
   servlet:

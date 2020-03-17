@@ -58,4 +58,10 @@ public class OAuth2ClientDetailsServiceImpl implements OAuth2ClientDetailsServic
     public OAuthClientDetail create(OAuth2ClientDetailCreateModel model) {
         return null;
     }
+
+    @Override
+    public OAuthClientDetail update(OAuth2ClientDetailCreateModel model) {
+
+        return null;
+    }
 }
