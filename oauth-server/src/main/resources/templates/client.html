@@ -60,7 +60,7 @@
     <div class="row">
         <div class="col-md-12 order-md-1">
             <h4 class="mb-3">客户端信息</h4>
-            <form class="needs-validation" action="/example-auth/client/detail" method="post">
+            <form class="needs-validation" action="/example-auth/client/detail/update" method="post">
                 <div class="mb-3">
                     <label for="clientId">客户端ID</label>
                     <div class="input-group">
@@ -93,10 +93,10 @@
                         <select class="custom-select d-block w-100" id="country" required="" name="grantTypes">
                             <option value="">Choose...</option>
 
-                            <option th:selected="${oAuthClient.grantTypes eq 'refresh_token,authorization_code'}"
-                                    value="refresh_token,authorization_code">authorization_code(带有refresh_token)</option>
-                            <option th:selected="${oAuthClient.grantTypes eq 'refresh_token,password'}"
-                                    value="refresh_token,password">password(带有refresh_token)</option>
+                            <option th:selected="${oAuthClient.grantTypes eq 'authorization_code,refresh_token'}"
+                                    value="authorization_code,refresh_token">authorization_code(带有refresh_token)</option>
+                            <option th:selected="${oAuthClient.grantTypes eq 'password,refresh_token'}"
+                                    value="password,refresh_token">password(带有refresh_token)</option>
 
                             <option th:selected="${oAuthClient.grantTypes eq 'authorization_code'}"
                                     value="authorization_code">authorization_code</option>

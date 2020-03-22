@@ -6,7 +6,6 @@ import club.example.oauth2.server.service.OAuth2ClientDetailsService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +43,14 @@ public class OAuth2ClientDetailsController {
         log.info("getClientDetail clientId = {}", clientId);
         OAuthClientDetail oAuthClientDetail = oAuth2ClientDetailsService.get(clientId);
         return new ModelAndView("client", "oAuthClient", oAuthClientDetail);
+    }
+
+    @PostMapping("/update")
+    public ModelAndView updateClientDetail(@ModelAttribute OAuth2ClientDetailCreateModel model) {
+        log.info("updateClientDetail model = {}", model.toString());
+        oAuth2ClientDetailsService.update(model);
+        List<OAuthClientDetail> detailList = oAuth2ClientDetailsService.getAll("", "", "");
+        return new ModelAndView("clients", "clientDetails", detailList);
     }
 
     @PostMapping
