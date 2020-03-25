@@ -48,16 +48,15 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.checkTokenAccess("isAuthenticated()")
-                // TODO: 接受token的使用方 需要用 key 来验证签名，需要对外暴露服务来获取签名
+                //  接受token的使用方 需要用 key 来验证签名，需要对外暴露服务来获取签名
                 .tokenKeyAccess("isAuthenticated()");
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-
         TokenStore jwtTokenStore = applicationContext.getBean("jwtTokenStore", TokenStore.class);
-
-        endpoints.authenticationManager(authenticationManager)
+        endpoints
+                .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
                 .authorizationCodeServices(authorizationCodeService)
                 .tokenStore(jwtTokenStore);
@@ -67,11 +66,9 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 TokenEnhancer.class);
         // Token 增强配置
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-        enhancerChain.setTokenEnhancers(Arrays.asList(
-                tokenConverter,
-                tokenEnhancer));
-
-        endpoints.accessTokenConverter(tokenConverter)
+        enhancerChain.setTokenEnhancers(Arrays.asList(tokenConverter, tokenEnhancer));
+        endpoints
+                .accessTokenConverter(tokenConverter)
                 .tokenEnhancer(enhancerChain);
 
     }
