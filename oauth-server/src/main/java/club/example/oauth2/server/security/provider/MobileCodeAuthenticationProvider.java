@@ -11,6 +11,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.Collections;
+
 @Component
 public class MobileCodeAuthenticationProvider implements AuthenticationProvider {
 
@@ -36,7 +38,11 @@ public class MobileCodeAuthenticationProvider implements AuthenticationProvider 
         if (! validated) {
             throw new OAuthMobileCodeGrantBadCredentialsException("手机验证码有误");
         }
-        return null;
+        OAuth2MobileCodeAuthentication mobileCodeAuthentication
+                = new OAuth2MobileCodeAuthentication(Collections.emptyList(),
+                mobileNumber, mobileCode);
+        mobileCodeAuthentication.setDetails("MobileCode");
+        return mobileCodeAuthentication;
     }
 
     @Override

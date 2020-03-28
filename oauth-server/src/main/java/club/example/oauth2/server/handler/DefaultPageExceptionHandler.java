@@ -43,6 +43,7 @@ public class DefaultPageExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public JsonResponse<String> processingIllegalArgument(IllegalArgumentException e) {
+        log.warn("processingIllegalArgument : exception {}",e.toString());
         return new JsonResponse<>(-10011, e.getMessage());
     }
 

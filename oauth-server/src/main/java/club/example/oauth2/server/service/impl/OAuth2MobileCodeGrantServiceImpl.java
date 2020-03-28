@@ -1,5 +1,6 @@
 package club.example.oauth2.server.service.impl;
 
+import club.example.oauth2.server.constant.OAuth2GrantCacheKey;
 import club.example.oauth2.server.service.OAuth2MobileCodeGrantService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,11 @@ import org.springframework.util.Assert;
 
 import javax.annotation.PostConstruct;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 @Log4j2
 @Service
 public class OAuth2MobileCodeGrantServiceImpl implements OAuth2MobileCodeGrantService {
-
-    private final static String MOBILE_CODE_GRANT_KEY = "sms:code:";
 
     private final StringRedisTemplate stringRedisTemplate;
     private ValueOperations<String, String> stringValueOperations;
@@ -40,7 +40,13 @@ public class OAuth2MobileCodeGrantServiceImpl implements OAuth2MobileCodeGrantSe
         log.info("sendCode mobileNumber = {}", mobileNumber);
         //Get random integer in range
         String value = generator.generate();
-        stringValueOperations.setIfAbsent(MOBILE_CODE_GRANT_KEY + mobileNumber,
+        String oldValue = stringValueOperations.get(OAuth2GrantCacheKey.MOBILE_CODE_GRANT_CACHE_KEY + mobileNumber);
+        if (oldValue != null && !oldValue.isEmpty()) {
+            stringValueOperations.set(OAuth2GrantCacheKey.MOBILE_CODE_GRANT_CACHE_KEY + mobileNumber,
+                    value, Duration.ofSeconds(3600));
+            return value;
+        }
+        stringValueOperations.setIfAbsent(OAuth2GrantCacheKey.MOBILE_CODE_GRANT_CACHE_KEY + mobileNumber,
                 value, Duration.ofSeconds(3600));
         return value;
     }
@@ -48,10 +54,12 @@ public class OAuth2MobileCodeGrantServiceImpl implements OAuth2MobileCodeGrantSe
     @Override
     public boolean validate(String mobile, String mobileCode) {
         log.info("validate mobile = {}, mobileCode = {}", mobile, mobileCode);
-        String value = stringValueOperations.get(MOBILE_CODE_GRANT_KEY + mobile);
+        String value = stringValueOperations.get(OAuth2GrantCacheKey.MOBILE_CODE_GRANT_CACHE_KEY + mobile);
         if (null == value || value.isEmpty()) {
             return false;
         }
+        // 验证码取出后立即作废
+        stringRedisTemplate.expire(OAuth2GrantCacheKey.MOBILE_CODE_GRANT_CACHE_KEY + mobile, 1L, TimeUnit.SECONDS);
         return mobileCode.equals(value);
     }
 }

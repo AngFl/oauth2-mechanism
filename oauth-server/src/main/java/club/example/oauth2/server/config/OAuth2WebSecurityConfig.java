@@ -1,6 +1,7 @@
 package club.example.oauth2.server.config;
 
 import club.example.oauth2.server.config.properties.OAuth2SecurityProperties;
+import club.example.oauth2.server.security.provider.MobileCodeAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -23,13 +24,18 @@ public class OAuth2WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final MobileCodeAuthenticationProvider mobileCodeAuthenticationProvider;
+
     private final OAuth2SecurityProperties securityProperties;
 
     @Autowired
     public OAuth2WebSecurityConfig(@Qualifier("authorizationUserDetailService") UserDetailsService userDetailsService,
-                                   PasswordEncoder passwordEncoder, OAuth2SecurityProperties securityProperties) {
+                                   PasswordEncoder passwordEncoder,
+                                   MobileCodeAuthenticationProvider mobileCodeAuthenticationProvider,
+                                   OAuth2SecurityProperties securityProperties) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
+        this.mobileCodeAuthenticationProvider = mobileCodeAuthenticationProvider;
         this.securityProperties = securityProperties;
     }
 
@@ -51,7 +57,8 @@ public class OAuth2WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
+        auth//.authenticationProvider(mobileCodeAuthenticationProvider)
+                .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
 

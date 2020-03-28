@@ -27,6 +27,10 @@ public class AuthorizationUserDetailService implements UserDetailsService {
         log.info("loadByUsername username = {}", username);
         OAuth2AuthenticationUserDetail userDetail = userDetailMapper.findByUsername(username);
         if (null == userDetail) {
+            // 非 UsernamePasswordAuthentication
+            // 载入其他输数据附加表
+            // 手机号码登录 //
+            // 二维码登录
             throw new UsernameNotFoundException("username = " + username);
         }
         return userDetail;

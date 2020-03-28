@@ -1,5 +1,6 @@
 package club.example.oauth2.server.config;
 
+import club.example.oauth2.server.security.granter.MobileCodeTokenGranter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,13 +16,20 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.CompositeTokenGranter;
+import org.springframework.security.oauth2.provider.TokenGranter;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenGranter;
+import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
+import org.springframework.security.oauth2.provider.refresh.RefreshTokenGranter;
+import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Order(3)
 @Configuration
@@ -60,6 +68,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 .userDetailsService(userDetailsService)
                 .authorizationCodeServices(authorizationCodeService)
                 .tokenStore(jwtTokenStore);
+
         JwtAccessTokenConverter tokenConverter = applicationContext.getBean("jwtAccessTokenConverter",
                 JwtAccessTokenConverter.class);
         TokenEnhancer tokenEnhancer = applicationContext.getBean("jwtTokenEnhancer",
@@ -106,4 +115,35 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 // 授权的令牌权限
                 .scopes("read", "write");
     }**/
+
+    /**
+     * 载入所有的授权模式
+     * @param endpoints AuthorizationServerEndpointsConfigurer
+     * @return TokenGranter
+     */
+    private TokenGranter getTokenGranters(AuthorizationServerEndpointsConfigurer endpoints) {
+        AuthorizationCodeTokenGranter authorizationCodeTokenGranter = new AuthorizationCodeTokenGranter(
+                endpoints.getDefaultAuthorizationServerTokenServices(),
+                endpoints.getAuthorizationCodeServices(),
+                endpoints.getClientDetailsService(),
+                endpoints.getOAuth2RequestFactory());
+
+        ResourceOwnerPasswordTokenGranter ownerPasswordTokenGranter = new ResourceOwnerPasswordTokenGranter(
+                authenticationManager,
+                endpoints.getDefaultAuthorizationServerTokenServices(),
+                endpoints.getClientDetailsService(),
+                endpoints.getOAuth2RequestFactory());
+
+        RefreshTokenGranter refreshTokenGranter = new RefreshTokenGranter(endpoints.getDefaultAuthorizationServerTokenServices(),
+                endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory());
+
+        MobileCodeTokenGranter mobileCodeTokenGranter = new MobileCodeTokenGranter(authenticationManager,
+                endpoints.getDefaultAuthorizationServerTokenServices(),
+                endpoints.getClientDetailsService(),
+                endpoints.getOAuth2RequestFactory());
+
+        List<TokenGranter> tokenGranterList = Arrays.asList(
+                authorizationCodeTokenGranter, refreshTokenGranter, ownerPasswordTokenGranter, mobileCodeTokenGranter);
+        return new CompositeTokenGranter(tokenGranterList);
+    }
 }
