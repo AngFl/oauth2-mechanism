@@ -1,8 +1,8 @@
 package club.example.oauth2.server;
-import club.example.oauth2.server.constant.EnumOAuthUserEnable;
-import club.example.oauth2.server.constant.EnumOAuthUserExpired;
-import club.example.oauth2.server.constant.EnumOAuthUserLocked;
-import club.example.oauth2.server.constant.EnumOAuthUserCredentialExpired;
+import club.example.oauth2.server.constant.user.EnumOAuthUserEnable;
+import club.example.oauth2.server.constant.user.EnumOAuthUserExpired;
+import club.example.oauth2.server.constant.user.EnumOAuthUserLocked;
+import club.example.oauth2.server.constant.user.EnumOAuthUserCredentialExpired;
 import java.time.LocalDateTime;
 
 import club.example.oauth2.server.entity.OAuth2UserDetail;

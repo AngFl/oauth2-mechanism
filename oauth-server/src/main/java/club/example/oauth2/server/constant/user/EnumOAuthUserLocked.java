@@ -1,4 +1,4 @@
-package club.example.oauth2.server.constant;
+package club.example.oauth2.server.constant.user;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;

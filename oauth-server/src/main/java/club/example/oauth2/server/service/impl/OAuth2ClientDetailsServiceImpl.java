@@ -1,11 +1,11 @@
 package club.example.oauth2.server.service.impl;
 
-import club.example.oauth2.server.constant.EnumOAuthClientScope;
-import club.example.oauth2.server.constant.EnumOAuthGrantType;
+import club.example.oauth2.server.constant.oauth.EnumOAuthClientScope;
+import club.example.oauth2.server.constant.oauth.EnumOAuthGrantType;
 import club.example.oauth2.server.entity.OAuthClientDetail;
-import club.example.oauth2.server.exception.OAuthClientDetailNotFoundException;
-import club.example.oauth2.server.exception.OAuthClientScopeNotSupportedException;
-import club.example.oauth2.server.exception.OAuthGrantTypeNotSupportedException;
+import club.example.oauth2.server.exception.ClientDetailNotFoundException;
+import club.example.oauth2.server.exception.ClientScopeNotSupportedException;
+import club.example.oauth2.server.exception.GrantTypeNotSupportedException;
 import club.example.oauth2.server.param.OAuth2ClientDetailCreateModel;
 import club.example.oauth2.server.repository.OAuthClientDetailMapper;
 import club.example.oauth2.server.service.OAuth2ClientDetailsService;
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -77,7 +76,7 @@ public class OAuth2ClientDetailsServiceImpl implements OAuth2ClientDetailsServic
 
         OAuthClientDetail oAuthClientDetail = oAuthClientDetailMapper.selectById(clientId);
         if (null == oAuthClientDetail || oAuthClientDetail.getMetaFlag() != 0) {
-            throw new OAuthClientDetailNotFoundException("clientId = " + clientId + "客户端信息不存在");
+            throw new ClientDetailNotFoundException("clientId = " + clientId + "客户端信息不存在");
         }
 
         if (! oAuthClientDetail.getResourceIds().equals(model.getResourceIds())) {
@@ -91,7 +90,7 @@ public class OAuth2ClientDetailsServiceImpl implements OAuth2ClientDetailsServic
 
         EnumOAuthGrantType enumOAuthGrantType = EnumOAuthGrantType.ofType(grantTypes);
         if (null == enumOAuthGrantType) {
-            throw new OAuthGrantTypeNotSupportedException("当前授权模式不支持");
+            throw new GrantTypeNotSupportedException("当前授权模式不支持");
         }
 
         if (! grantTypes.equals(oAuthClientDetail.getGrantTypes())) {
@@ -114,7 +113,7 @@ public class OAuth2ClientDetailsServiceImpl implements OAuth2ClientDetailsServic
         String scopes = model.getScopes();
         EnumOAuthClientScope enumOAuthClientScope = EnumOAuthClientScope.ofScope(scopes);
         if (null == enumOAuthClientScope) {
-            throw new OAuthClientScopeNotSupportedException("当前客户端作用域不支持");
+            throw new ClientScopeNotSupportedException("当前客户端作用域不支持");
         }
 
         if (! scopes.equals(oAuthClientDetail.getScopes())) {

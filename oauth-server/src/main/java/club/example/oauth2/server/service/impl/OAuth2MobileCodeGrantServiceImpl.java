@@ -1,6 +1,6 @@
 package club.example.oauth2.server.service.impl;
 
-import club.example.oauth2.server.constant.OAuth2GrantCacheKey;
+import club.example.oauth2.server.constant.oauth.OAuth2GrantCacheKey;
 import club.example.oauth2.server.service.OAuth2MobileCodeGrantService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

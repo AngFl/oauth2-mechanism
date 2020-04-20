@@ -1,9 +1,9 @@
 package club.example.oauth2.server.handler;
 
 import club.example.oauth2.server.entity.web.JsonResponse;
-import club.example.oauth2.server.exception.OAuthClientDetailNotFoundException;
-import club.example.oauth2.server.exception.OAuthClientScopeNotSupportedException;
-import club.example.oauth2.server.exception.OAuthGrantTypeNotSupportedException;
+import club.example.oauth2.server.exception.ClientDetailNotFoundException;
+import club.example.oauth2.server.exception.ClientScopeNotSupportedException;
+import club.example.oauth2.server.exception.GrantTypeNotSupportedException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
@@ -42,32 +42,32 @@ public class DefaultPageExceptionHandler {
     @ExceptionHandler(value = IllegalArgumentException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public JsonResponse<String> processingIllegalArgument(IllegalArgumentException e) {
-        log.warn("processingIllegalArgument : exception {}",e.toString());
+    public JsonResponse<String> handleIllegalArgument(IllegalArgumentException e) {
+        log.warn("handleIllegalArgument : exception {}",e.toString());
         return new JsonResponse<>(-10011, e.getMessage());
     }
 
-    @ExceptionHandler(value = OAuthClientDetailNotFoundException.class)
+    @ExceptionHandler(value = ClientDetailNotFoundException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public JsonResponse<String> processingNotFoundClient(OAuthClientDetailNotFoundException e) {
-        log.warn("processingNotFoundClient : exception {}",e.toString());
+    public JsonResponse<String> handleNotFoundClient(ClientDetailNotFoundException e) {
+        log.warn("handleNotFoundClient : exception {}",e.toString());
         return new JsonResponse<>(-11, e.getMessage());
     }
 
-    @ExceptionHandler(value = OAuthGrantTypeNotSupportedException.class)
+    @ExceptionHandler(value = GrantTypeNotSupportedException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public JsonResponse<String> processingGrantTypeNotSupported(OAuthGrantTypeNotSupportedException e) {
-        log.warn("processingGrantTypeNotSupported : exception {}",e.toString());
+    public JsonResponse<String> handleGrantTypeNotSupported(GrantTypeNotSupportedException e) {
+        log.warn("handleGrantTypeNotSupported : exception {}",e.toString());
         return new JsonResponse<>(-11, e.getMessage());
     }
 
-    @ExceptionHandler(value = OAuthClientScopeNotSupportedException.class)
+    @ExceptionHandler(value = ClientScopeNotSupportedException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public JsonResponse<String> processingClientScopeNotSupported(OAuthClientScopeNotSupportedException e) {
-        log.warn("processingNotFoundClient : exception {}",e.toString());
+    public JsonResponse<String> handleClientScopeNotSupported(ClientScopeNotSupportedException e) {
+        log.warn("handleNotFoundClient : exception {}",e.toString());
         return new JsonResponse<>(-11, e.getMessage());
     }
 }

@@ -1,6 +1,6 @@
 package club.example.oauth2.server.service;
 
-import club.example.oauth2.server.constant.OAuth2GrantCacheKey;
+import club.example.oauth2.server.constant.oauth.OAuth2GrantCacheKey;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.userdetails.User;

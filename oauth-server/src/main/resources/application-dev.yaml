@@ -1,0 +1,95 @@
+spring:
+  application:
+    name: @pom.artifactId@
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/oauth2-server?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+    username: root
+    password: qweqwe
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 4
+      max-lifetime: 8000
+      connection-timeout: 2000
+      pool-name: OAuth2ServerConnectionPool
+  redis:
+    host: 127.0.0.1
+    password: password
+    port: 6382
+    timeout: 3000
+    lettuce:
+      pool:
+        max-idle: 8
+        max-active: 8
+        max-wait: -1ms
+        min-idle: 0
+  mvc:
+    servlet:
+      load-on-startup: 0
+  jackson:
+    locale: zh_CN
+    time-zone: GMT+8
+server:
+  port: 8030
+  servlet:
+    context-path: /example-auth
+  tomcat:
+    max-connections: 1000
+
+# Logging
+logging:
+  level:
+    root: info
+    club.example.oauth2.server.repository: trace
+
+# mybatis
+mybatis-plus:
+  type-aliases-package: club.example.oauth2.server.entity
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    banner: false
+    db-config:
+      id-type: none
+  #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+  configuration:
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+    cache-enabled: false
+    default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
+
+oauth2:
+  security:
+    store-type: jwt
+    authorization-code:
+      expiration : 300
+    jwt:
+      sign-key: jwtSignKey
+    browser:
+      login-page : /oauth-sign-in.html
+
+# 资源自有服务器
+#security:
+#  oauth2:
+#    client:
+#      client-id: authorization-admin-gr8xjo2c
+#      client-secret: password.admin
+#      access-token-uri: http://localhost:${server.port}/${server.servlet.context-path}/oauth/token
+#      resource-ids: resourceApp-b
+#      scope: read,write
+#      grant-type: password
+#    resource:
+#      jwt:
+#        key-uri: http://localhost:${server.port}/${server.servlet.context-path}/oauth/token_key
+
+# 微信支付
+payment:
+  app-id: wx9abed099f0585556
+  mch-id: 1509559041
+  mch-key: a2fffd50da5063b5a0197dc5db6fe718
+  notify-url: http://test.kaisaspace.com:8080/wewa-finance/pay/appointment/appointmentBillWxpayBack.xml
+
+# 微信公众平台
+wechat:
+  app-id: wx0e19bd150e584b1e
+  app-secret: d7762e7c6330ca6cf0a489b47177363b
+  token: vjr9l3v5d93v
